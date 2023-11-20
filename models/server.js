@@ -1,4 +1,5 @@
 const express = require('express')
+const cors = require('cors')//Implementar seguridad
 const { dbConection } = require('../database/config')
 
 class Server{
@@ -6,6 +7,7 @@ class Server{
         this.app = express()
         this.port = process.env.PORT
         this.clientePath = '/cliente' //Ruta de la API
+        this.middlewares()
         this.routes()
         this.conectarDB()
     }
@@ -25,6 +27,10 @@ class Server{
 
     async conectarDB(){
         await dbConection()
+    }
+
+    middlewares(){
+        this.app.use(cors()); //Indicar el uso de cors
     }
 
 }
