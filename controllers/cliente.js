@@ -10,8 +10,12 @@ const getCliente = async(req, res) => {
     })
 }
 
+// const postCliente = async(req, res) => {
+//     const datos = req.query//CAPTURAR DATOS DE LA URL-POSTMAN
+
 const postCliente = async(req, res) => {
-    const datos = req.query//CAPTURAR DATOS DE LA URL-POSTMAN
+        const datos = req.body//CAPTURAR DATOS DE LA URL-POSTMAN
+
 
     let mensaje = 'Insercción exitosa'
 
