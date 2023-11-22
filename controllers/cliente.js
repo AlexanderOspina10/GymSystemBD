@@ -11,10 +11,10 @@ const getCliente = async(req, res) => {
 }
 
 // const postCliente = async(req, res) => {
-//     const datos = req.query//CAPTURAR DATOS DE LA URL-POSTMAN
+//     const datos = req.query//CAPTURAR DATOS DE LA URL-POSTMAN LOCALMENTE
 
 const postCliente = async(req, res) => {
-        const datos = req.body//CAPTURAR DATOS DE LA URL-POSTMAN
+        const datos = req.body//CAPTURAR DATOS DE LA URL-POSTMAN EN LA AWEB
 
 
     let mensaje = 'Insercción exitosa'
@@ -35,7 +35,7 @@ const postCliente = async(req, res) => {
 }
 
 const putCliente = async(req, res) => {
-    const {documentoCliente, nombreCliente, telefonoCliente, correoCliente, direccionCliente, estadoCliente} = req.query //DESESTRUCTURAR
+    const {documentoCliente, nombreCliente, telefonoCliente, correoCliente, direccionCliente, estadoCliente} = req.body //DESESTRUCTURAR
     let mensaje = ''
     try {
         const cliente = await Cliente.findOneAndUpdate({documentoCliente: documentoCliente},
