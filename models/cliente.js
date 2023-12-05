@@ -12,7 +12,7 @@ const ClienteSchema = ({
     
     nombreCliente:{
         type: String,
-        unique:true,
+        unique:[true, 'El nombre ingresado ya existe en el sistema'],
         required:[true, 'El nombre de cliente es requerido']
     },
 
@@ -27,7 +27,7 @@ const ClienteSchema = ({
     correoCliente:{
         type: String,
         required:[true, 'El correo del cliente es requerido'],
-        match:/^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+        match:/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
         min:10,
         trim:true,
         lowercase:true,
@@ -41,6 +41,13 @@ const ClienteSchema = ({
         required:[true, 'La dirección del cliente es requerida'],
         min:5,
         trim:true,
+    },
+
+    password:{
+        type:String,
+        required:[true, 'El password es requeridod'],
+        min:[4, 'El password debe contener mínimo 4 caracteres'],
+        max:[10, 'El password debe contener máximo 10 caracteres']
     },
 
     estadoCliente: {

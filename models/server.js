@@ -8,6 +8,7 @@ class Server{
         this.app = express()
         this.port = process.env.PORT
         this.clientePath = '/cliente' //Ruta de la API
+        this.beneficiarioPath = '/beneficiario' //Ruta de la API
         this.middlewares()
         this.routes()
         this.conectarDB()
@@ -24,6 +25,7 @@ class Server{
     }
     routes(){
         this.app.use(this.clientePath, require('../routes/cliente'))
+        this.app.use(this.beneficiarioPath, require('../routes/beneficiario'))
     }
 
     async conectarDB(){

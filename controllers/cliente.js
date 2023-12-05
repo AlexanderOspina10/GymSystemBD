@@ -38,10 +38,16 @@ const putCliente = async(req, res) => {
     const {documentoCliente, nombreCliente, telefonoCliente, correoCliente, direccionCliente, estadoCliente} = req.body //DESESTRUCTURAR
     let mensaje = ''
     try {
-        const cliente = await Cliente.findOneAndUpdate({documentoCliente: documentoCliente},
-            {nombreCliente:nombreCliente, telefonoCliente:telefonoCliente,correoCliente:correoCliente,
-                direccionCliente:direccionCliente,estadoCliente:estadoCliente})
-            mensaje = 'Actualizacion existosa'
+        const cliente = await Cliente.findOne({ documentoCliente });
+        if(cliente){
+            const cliente = await Cliente.findOneAndUpdate({documentoCliente: documentoCliente},
+                {nombreCliente:nombreCliente, telefonoCliente:telefonoCliente,correoCliente:correoCliente,
+                    direccionCliente:direccionCliente,estadoCliente:estadoCliente})
+                mensaje = 'Actualizacion existosa'
+        }else{
+            mensaje = 'Cliente no encontrado'
+        }
+        
         
     } catch (error) {
         mensaje = error
@@ -51,21 +57,28 @@ const putCliente = async(req, res) => {
     })  
 }
 
-const deleteCliente = async(req, res) => {
-    const {nombreCliente} = req.query //DESESTRUCTURAR
-    let mensaje = ''
+const deleteCliente = async (req, res) => { 
+    const { documentoCliente } = req.body; // DESESTRUCTURAR
+    let mensaje = '';
+
     try {
-        const cliente = await Cliente.findOneAndDelete({nombreCliente: nombreCliente})
-            mensaje = 'Eliminación existosa'
-        
-    } catch (error) {
-        mensaje = error
-    }
-    res.json({
-        msg:mensaje
-    })  
-}
+        const cliente = await Cliente.findOne({ documentoCliente });
 
+        if (cliente) {
+            // Si el cliente existe, procede a eliminarlo
+            await Cliente.findOneAndDelete({ documentoCliente });
+            mensaje = 'Eliminación exitosa';
+        } else {
+            mensaje = 'Cliente no encontrado';
+        }
+    } catch (error) {
+        mensaje = error.message || 'Error al eliminar el cliente';
+    }
+
+    res.json({
+        msg: mensaje,
+    });
+};
 
 
 module.exports = {
