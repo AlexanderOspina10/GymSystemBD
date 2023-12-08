@@ -35,14 +35,14 @@ const postCliente = async(req, res) => {
 }
 
 const putCliente = async(req, res) => {
-    const {documentoCliente, nombreCliente, telefonoCliente, correoCliente, direccionCliente, estadoCliente} = req.body //DESESTRUCTURAR
+    const {documentoCliente, nombreCliente, telefonoCliente, correoCliente, direccionCliente, estadoCliente, precioDolar:precioDolar} = req.body //DESESTRUCTURAR
     let mensaje = ''
     try {
         const cliente = await Cliente.findOne({ documentoCliente });
         if(cliente){
             const cliente = await Cliente.findOneAndUpdate({documentoCliente: documentoCliente},
                 {nombreCliente:nombreCliente, telefonoCliente:telefonoCliente,correoCliente:correoCliente,
-                    direccionCliente:direccionCliente,estadoCliente:estadoCliente})
+                    direccionCliente:direccionCliente,estadoCliente:estadoCliente, precioDolar:precioDolar})
                 mensaje = 'Actualizacion existosa'
         }else{
             mensaje = 'Cliente no encontrado'
